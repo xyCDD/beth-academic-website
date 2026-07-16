@@ -1,0 +1,23 @@
+{
+  "name": "beth-academic-website",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Personal academic website for Beth, an incoming PhD student in Marketing. Visitors can vote on early-stage research ideas and submit research-interest keywords for an admin-moderated word cloud. Built with plain HTML/CSS/JS on the front end and a small Node.js + Express + SQLite back end.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "cookie-session": "^2.1.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "license": "UNLICENSED"
+}

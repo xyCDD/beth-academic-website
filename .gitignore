@@ -1,0 +1,38 @@
+# ---- Dependencies -------------------------------------------------
+# Installed packages. These are downloaded with `npm install` and must
+# never be committed — they are large and machine-specific.
+node_modules/
+
+# ---- Secrets / environment variables ------------------------------
+# The real .env holds the admin password and session secret.
+# It must NEVER be committed. The safe template .env.example is kept.
+.env
+.env.*
+!.env.example
+
+# ---- Database files -----------------------------------------------
+# The SQLite database holds real visitor data and lives only on the
+# local machine (and, in production, on the VPS). Never commit it.
+*.db
+*.sqlite
+*.sqlite3
+data/*.db
+
+# ---- Logs ---------------------------------------------------------
+*.log
+npm-debug.log*
+
+# ---- Operating-system junk files ----------------------------------
+.DS_Store
+Thumbs.db
+._*
+
+# ---- Editor / IDE folders -----------------------------------------
+.vscode/
+.idea/
+
+# ---- Course materials / internal source documents -----------------
+# Kept locally for reference but not uploaded to the public repository.
+docs/
+peoject_brief/
+project_brief/
