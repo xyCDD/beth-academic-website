@@ -1,17 +1,19 @@
 # Beth — Personal Academic Website
 
-A personal academic website for Beth, an incoming PhD student in Marketing. It introduces her
-current academic identity and research interests, presents two or three early-stage research ideas,
-and invites visitors to respond through two small interactions:
+A personal academic website where Beth, an incoming PhD student in Marketing, shares developing
+research ideas, visitors can signal their interest, and those open to further exchange can leave their
+contact information. It introduces her current academic identity and research interests, presents two
+or three developing research ideas, and offers two small interactions:
 
-- **Research-idea voting** — visitors vote on the idea they would most like to see developed and can
-  leave an optional comment.
-- **Research-interest word cloud** — visitors submit a few research keywords which, after Beth
-  approves them, appear in a public word cloud.
+- **"I'm interested"** — visitors click a simple heart button on a research idea; each idea shows a
+  visible count of how many visitors have expressed interest.
+- **Stay in Touch** — visitors can leave their email (with a required consent checkbox) so Beth may
+  reach out about research-related exchange.
 
-A password-protected admin panel lets Beth moderate submissions and edit her research ideas, with
-changes appearing on the public site. Visitor input is always presented as an informal community
-snapshot — not a representative survey or a formal research study.
+A password-protected admin panel lets Beth view interest counts, manage the private contact emails,
+and edit her research ideas, with changes appearing on the public site. There is no visitor free-text
+content, and interest counts are framed only as informal visitor engagement — not a discussion
+platform, research social network, representative survey, or formal research study.
 
 ## Technology stack
 
@@ -39,7 +41,8 @@ with `npm install`, which also generates `package-lock.json` (committed) and `no
 real `.env` file and the SQLite database are intentionally **not** created yet.
 
 Planned next stages (see `PLAN.md` for full detail): static page shell → infrastructure preparation
-→ server + database → voting → keyword cloud → admin panel → first live deployment → polish.
+→ server + database → "I'm interested" interaction → Stay in Touch email form → admin panel →
+first live deployment → polish.
 
 ## Project structure
 

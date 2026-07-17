@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beth Chen — Incoming PhD Student in Marketing</title>
+  <meta name="description" content="Personal academic website of Beth Chen, incoming PhD student in Marketing at City University of Hong Kong. Developing research ideas on consumer behaviour, pricing, AI and trust, and digital interfaces." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- ===================== Top navigation ===================== -->
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="nav__brand" href="#top">Beth Chen</a>
+
+      <button
+        class="nav__toggle"
+        id="navToggle"
+        aria-expanded="false"
+        aria-controls="navMenu"
+        aria-label="Open menu">
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <ul class="nav__menu" id="navMenu">
+        <li><a class="nav__link" href="#about">About</a></li>
+        <li><a class="nav__link" href="#interests">Interests</a></li>
+        <li><a class="nav__link" href="#ideas">Ideas</a></li>
+        <li><a class="nav__link" href="#stay-in-touch">Stay in Touch</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- ===================== Hero ===================== -->
+    <section class="hero" id="hero" aria-labelledby="hero-name">
+      <div class="hero__inner container">
+        <div class="hero__text">
+          <p class="hero__eyebrow">Incoming PhD Student in Marketing</p>
+          <h1 class="hero__name" id="hero-name">Beth Chen</h1>
+          <p class="hero__affiliation">City University of Hong Kong</p>
+          <p class="hero__positioning">
+            Exploring how pricing, technology, and digital interfaces shape consumer decisions.
+          </p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#ideas">Explore My Research</a>
+            <a class="btn btn--secondary" href="#stay-in-touch">Stay in Touch</a>
+          </div>
+        </div>
+
+        <div class="hero__portrait">
+          <div class="portrait-frame">
+            <img
+              src="assets/IMG_8056.jpeg"
+              alt="Portrait of Beth Chen, incoming PhD student in Marketing"
+              class="portrait-frame__img"
+              width="2400" height="3600" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== About Beth ===================== -->
+    <section class="section" id="about" aria-labelledby="about-heading">
+      <div class="container section__narrow">
+        <h2 class="section__heading" id="about-heading">About Beth</h2>
+        <p class="about__text">
+          I am an incoming PhD student in Marketing at City University of Hong Kong. My academic
+          background spans Economics and Professional Accountancy, followed by more than four years of
+          experience in marketing communications and public relations. Working closely with brands and
+          consumer-facing campaigns made me increasingly curious not only about what people choose, but
+          why they choose it. I am now turning that practical experience into research questions about
+          consumer behavior, pricing and promotion, AI and trust, and digital interfaces. This website is
+          a space to share ideas as they develop and connect with others who find them interesting.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== Research Interests ===================== -->
+    <section class="section section--tint" id="interests" aria-labelledby="interests-heading">
+      <div class="container">
+        <h2 class="section__heading" id="interests-heading">Research Interests</h2>
+        <ul class="interest-grid" role="list">
+          <li class="interest-card">
+            <h3 class="interest-card__title">Consumer Behavior</h3>
+            <p class="interest-card__text">
+              Understanding the psychological processes behind everyday judgments and choices.
+            </p>
+          </li>
+          <li class="interest-card">
+            <h3 class="interest-card__title">Pricing and Promotion</h3>
+            <p class="interest-card__text">
+              Exploring how discounts, gifts, timing, and risk-reduction policies shape purchase decisions.
+            </p>
+          </li>
+          <li class="interest-card">
+            <h3 class="interest-card__title">AI and Consumer Trust</h3>
+            <p class="interest-card__text">
+              Examining how AI disclosure and technology influence trust, authenticity, and engagement.
+            </p>
+          </li>
+          <li class="interest-card">
+            <h3 class="interest-card__title">Digital Interfaces and Online Choice</h3>
+            <p class="interest-card__text">
+              Studying how interface and product-presentation decisions affect evaluation and choice.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== Developing Research Ideas ===================== -->
+    <section class="section" id="ideas" aria-labelledby="ideas-heading">
+      <div class="container">
+        <h2 class="section__heading" id="ideas-heading">Developing Research Ideas</h2>
+        <p class="section__intro">
+          Early-stage ideas I am currently exploring. If one resonates with you, let me know you are
+          interested.
+        </p>
+
+        <div class="idea-grid">
+          <!-- Idea 1 -->
+          <article class="idea-card" data-idea-key="preorder-design">
+            <div class="idea-card__body">
+              <span class="status-pill" data-field="status">Developing</span>
+              <h3 class="idea-card__title" data-field="title">Preference-Informed Preorder Design</h3>
+              <p class="idea-card__desc" data-field="description">
+                How discounts, gifts, cashback, and refund policies shape consumers’ willingness to
+                preorder and the timing of their purchase decisions.
+              </p>
+              <ul class="chips" data-field="keywords" role="list">
+                <li class="chip">Advance Selling</li>
+                <li class="chip">Pricing</li>
+                <li class="chip">Promotion</li>
+                <li class="chip">Perceived Risk</li>
+              </ul>
+            </div>
+            <div class="idea-card__interest">
+              <button class="btn btn--interest" type="button" data-interest-button aria-pressed="false">
+                <span class="btn--interest__icon" aria-hidden="true">♡</span>
+                <span class="btn--interest__label">I’m interested</span>
+              </button>
+              <p class="idea-card__count" data-interest-count>Be the first to show interest</p>
+            </div>
+          </article>
+
+          <!-- Idea 2 -->
+          <article class="idea-card" data-idea-key="ai-trust">
+            <div class="idea-card__body">
+              <span class="status-pill" data-field="status">Exploring</span>
+              <h3 class="idea-card__title" data-field="title">AI Disclosure and Consumer Trust</h3>
+              <p class="idea-card__desc" data-field="description">
+                How knowing that marketing content was created by AI changes perceived authenticity,
+                trust, and willingness to engage.
+              </p>
+              <ul class="chips" data-field="keywords" role="list">
+                <li class="chip">AI Disclosure</li>
+                <li class="chip">Consumer Trust</li>
+                <li class="chip">Authenticity</li>
+                <li class="chip">Digital Content</li>
+              </ul>
+            </div>
+            <div class="idea-card__interest">
+              <button class="btn btn--interest" type="button" data-interest-button aria-pressed="false">
+                <span class="btn--interest__icon" aria-hidden="true">♡</span>
+                <span class="btn--interest__label">I’m interested</span>
+              </button>
+              <p class="idea-card__count" data-interest-count>Be the first to show interest</p>
+            </div>
+          </article>
+
+          <!-- Idea 3 -->
+          <article class="idea-card" data-idea-key="digital-presentation">
+            <div class="idea-card__body">
+              <span class="status-pill" data-field="status">Exploring</span>
+              <h3 class="idea-card__title" data-field="title">Digital Product Presentation and Choice</h3>
+              <p class="idea-card__desc" data-field="description">
+                How product orientation, visual arrangement, and information presentation influence
+                product evaluation and choice satisfaction online.
+              </p>
+              <ul class="chips" data-field="keywords" role="list">
+                <li class="chip">Interface Design</li>
+                <li class="chip">Product Display</li>
+                <li class="chip">Online Choice</li>
+                <li class="chip">Choice Satisfaction</li>
+              </ul>
+            </div>
+            <div class="idea-card__interest">
+              <button class="btn btn--interest" type="button" data-interest-button aria-pressed="false">
+                <span class="btn--interest__icon" aria-hidden="true">♡</span>
+                <span class="btn--interest__label">I’m interested</span>
+              </button>
+              <p class="idea-card__count" data-interest-count>Be the first to show interest</p>
+            </div>
+          </article>
+        </div>
+
+        <p class="ideas__note">
+          These counts reflect casual interest from visitors to this site — an informal signal, not
+          research data.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===================== Stay in Touch ===================== -->
+    <section class="section section--tint" id="stay-in-touch" aria-labelledby="stay-heading">
+      <div class="container section__narrow">
+        <h2 class="section__heading" id="stay-heading">Stay in Touch</h2>
+        <p class="stay__prompt">
+          Interested in discussing one of these ideas in the future? Leave your email, and Beth may get
+          in touch.
+        </p>
+
+        <!-- Stage 2: visual only. No submission, no storage, no API. -->
+        <form class="stay-form" novalidate>
+          <div class="field">
+            <label class="field__label" for="email">Email address</label>
+            <input
+              class="field__input"
+              type="email"
+              id="email"
+              name="email"
+              autocomplete="email"
+              placeholder="you@example.com" />
+          </div>
+
+          <div class="field field--checkbox">
+            <input class="field__checkbox" type="checkbox" id="consent" name="consent" />
+            <label class="field__consent-label" for="consent">
+              I agree that my email may be stored and used by Beth to contact me about research-related
+              exchange.
+            </label>
+          </div>
+
+          <button class="btn btn--primary" type="button">Leave My Email</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="site-footer__text">© <span id="year">2026</span> Beth Chen · Incoming PhD Student in Marketing</p>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
