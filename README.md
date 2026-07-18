@@ -32,19 +32,27 @@ Kept deliberately simple and beginner-friendly:
 
 ## Current development status
 
-**Stages 1–5 complete.** Project setup and Git hygiene (Stage 1); responsive static page shell
-(Stage 2); the local Express server + SQLite database + database-driven Research Ideas (Stage 4); and
-the one-way "I'm interested" interaction (Stage 5).
+**Stages 1–6 complete.** Project setup and Git hygiene (Stage 1); responsive static page shell
+(Stage 2); the local Express server + SQLite database + database-driven Research Ideas (Stage 4); the
+one-way "I'm interested" interaction (Stage 5); and the Stay in Touch email form saved privately to
+SQLite (Stage 6).
 
-The site runs through a local server (`server.js`) that serves the `public/` folder and two public API
-routes: `GET /api/ideas` (list) and `POST /api/ideas/:id/interest` (record one interest). A `db.js`
-module uses Node.js 24's built-in `node:sqlite` to create `data/site.db`, build the three tables on
-first run, and seed the three research ideas only if the table is empty. The Research Ideas cards are
-rendered by `main.js` from the API. Clicking a card's "I'm interested" heart records one row in
-`idea_interests` and shows a settled "♥ Interested" state; the public count always comes from the
-database. Interest is **one-way** in the MVP — there is no unlike, toggle, undo, or decrement. A light
-`localStorage` guard (`bethInterestedIdeaIds`) keeps the same browser from repeat-clicking. The Stay in
-Touch form and all admin functionality are still not implemented (`contact_requests` remains empty).
+The site runs through a local server (`server.js`) that serves the `public/` folder and three public API
+routes: `GET /api/ideas` (list), `POST /api/ideas/:id/interest` (record one interest), and
+`POST /api/contact` (save a Stay in Touch email). A `db.js` module uses Node.js 24's built-in
+`node:sqlite` to create `data/site.db`, build the three tables on first run, and seed the three research
+ideas only if the table is empty. The Research Ideas cards are rendered by `main.js` from the API.
+Clicking a card's "I'm interested" heart records one row in `idea_interests` and shows a settled
+"♥ Interested" state; the public count always comes from the database. Interest is **one-way** in the
+MVP — no unlike, toggle, undo, or decrement — with a light `localStorage` guard
+(`bethInterestedIdeaIds`) against repeat-clicking.
+
+The **Stay in Touch** form now works: a valid email plus a ticked consent box is `POST`ed as JSON to
+`/api/contact`, validated again on the server (trimmed, lowercased, format-checked, consent required),
+and stored privately in `contact_requests` with `consent_given = 1` and `status = 'new'`. The email is
+never shown publicly and there is **no public route to read contact requests** — those become visible
+only in the admin panel, which is **not built yet**. All admin functionality (login, dashboard,
+research-idea editing) remains unimplemented.
 
 The real `.env` (with `PORT` and `NODE_ENV`) is created locally and git-ignored, and so is
 `data/site.db`. Planned next stages (see `PLAN.md` for full detail): infrastructure preparation →

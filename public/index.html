@@ -141,8 +141,8 @@
           in touch.
         </p>
 
-        <!-- Stage 2: visual only. No submission, no storage, no API. -->
-        <form class="stay-form" novalidate>
+        <!-- Submission is handled by main.js (POST /api/contact as JSON). -->
+        <form class="stay-form" id="stayForm" data-stay-form novalidate>
           <div class="field">
             <label class="field__label" for="email">Email address</label>
             <input
@@ -150,20 +150,33 @@
               type="email"
               id="email"
               name="email"
+              data-stay-email
               autocomplete="email"
               placeholder="you@example.com" />
           </div>
 
           <div class="field field--checkbox">
-            <input class="field__checkbox" type="checkbox" id="consent" name="consent" />
+            <input class="field__checkbox" type="checkbox" id="consent" name="consent" data-stay-consent />
             <label class="field__consent-label" for="consent">
               I agree that my email may be stored and used by Beth to contact me about research-related
               exchange.
             </label>
           </div>
 
-          <button class="btn btn--primary" type="button">Leave My Email</button>
+          <button class="btn btn--primary" type="submit" id="staySubmit" data-stay-submit>Leave My Email</button>
+
+          <p
+            class="stay-form__status"
+            id="stayStatus"
+            data-stay-status
+            role="status"
+            aria-live="polite"
+            tabindex="-1"></p>
         </form>
+
+        <p class="stay__privacy">
+          Your email will be visible only to Beth and used only for research-related contact.
+        </p>
       </div>
     </section>
   </main>

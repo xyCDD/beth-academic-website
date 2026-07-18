@@ -16,13 +16,16 @@ const path = require("node:path");
 const express = require("express");
 
 // Our database module (built-in node:sqlite). init() is safe to run every start.
-const { init, getPublicIdeas, recordInterest } = require("./db");
+const { init, getPublicIdeas, recordInterest, addContactRequest } = require("./db");
 init();
 
 const app = express();
 
 // Use the PORT from .env, or fall back to 3000 if it is not set.
 const PORT = process.env.PORT || 3000;
+
+// Read JSON request bodies (used by the contact form). Small size limit.
+app.use(express.json({ limit: "10kb" }));
 
 // --- Serve the public website -----------------------------------------
 // This exposes ONLY the public/ folder to visitors.
@@ -67,6 +70,54 @@ app.post("/api/ideas/:id/interest", (req, res) => {
   } catch (err) {
     console.error("Failed to record interest:", err);
     return res.status(500).json({ error: "Could not record interest." });
+  }
+});
+
+// --- Public API: save a Stay in Touch contact request -----------------
+// Accepts JSON { email, consent }. Validates independently of the browser,
+// stores a consented, normalised email privately, and never echoes it back.
+// There is NO public route to read contact requests.
+app.post("/api/contact", (req, res) => {
+  const body = req.body;
+  if (!body || typeof body !== "object") {
+    return res.status(400).json({ error: "Please enter your email address." });
+  }
+
+  // Email must be a string.
+  if (typeof body.email !== "string") {
+    return res.status(400).json({ error: "Please enter a valid email address." });
+  }
+
+  // Trim and normalise to lowercase before any checks or storage.
+  const email = body.email.trim().toLowerCase();
+
+  if (email.length === 0) {
+    return res.status(400).json({ error: "Please enter your email address." });
+  }
+  if (email.length > 254) {
+    return res.status(400).json({ error: "That email address is too long." });
+  }
+  // Reasonable basic email-format check: something@something.something
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    return res.status(400).json({ error: "Please enter a valid email address." });
+  }
+
+  // Consent must be exactly true.
+  if (body.consent !== true) {
+    return res.status(400).json({ error: "Please tick the consent box to continue." });
+  }
+
+  try {
+    addContactRequest(email);
+    // Minimal success response — the email is never echoed back.
+    return res.status(201).json({
+      success: true,
+      message: "Thanks — your email has been saved.",
+    });
+  } catch (err) {
+    console.error("Failed to save contact request:", err);
+    return res.status(500).json({ error: "Could not save your email. Please try again." });
   }
 });
 

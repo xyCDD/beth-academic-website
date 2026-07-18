@@ -441,6 +441,24 @@ input:focus-visible {
 }
 .field__consent-label { color: var(--secondary); font-size: 0.95rem; }
 
+/* Inline status message under the form (validation error / success). */
+.stay-form__status {
+  margin-top: var(--space-1);
+  font-size: 0.95rem;
+  min-height: 1.2em;            /* reserve space so layout doesn't jump */
+}
+.stay-form__status.is-error { color: var(--heart); }
+.stay-form__status.is-success { color: var(--accent-hover); font-weight: 600; }
+.stay-form__status:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* Quiet privacy note near the form. */
+.stay__privacy {
+  color: var(--secondary);
+  font-size: 0.85rem;
+  margin-top: var(--space-3);
+  max-width: 55ch;
+}
+
 /* ---- Footer ----------------------------------------------------------- */
 .site-footer {
   border-top: 1px solid var(--border);

@@ -334,7 +334,97 @@
   loadIdeas();
 
   /* ===================================================================
-     6. Footer year
+     6. Stay in Touch form (POST /api/contact)
+     =================================================================== */
+  var stayForm = document.getElementById("stayForm");
+  var emailInput = document.getElementById("email");
+  var consentInput = document.getElementById("consent");
+  var staySubmit = document.getElementById("staySubmit");
+  var stayStatus = document.getElementById("stayStatus");
+  var EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var isSubmitting = false;
+
+  function setStayStatus(message, kind) {
+    if (!stayStatus) return;
+    stayStatus.textContent = message;
+    stayStatus.classList.remove("is-error", "is-success");
+    if (kind === "error") stayStatus.classList.add("is-error");
+    if (kind === "success") stayStatus.classList.add("is-success");
+  }
+
+  if (stayForm && emailInput && consentInput && staySubmit) {
+    stayForm.addEventListener("submit", function (event) {
+      event.preventDefault(); // never let the browser navigate/submit normally
+      if (isSubmitting) return; // block rapid repeat submissions
+
+      var email = emailInput.value.trim();
+
+      // ---- Browser-side validation (the server checks again independently) ----
+      if (email.length === 0) {
+        setStayStatus("Please enter your email address.", "error");
+        emailInput.focus();
+        return;
+      }
+      if (email.length > 254 || !EMAIL_PATTERN.test(email)) {
+        setStayStatus("Please enter a valid email address.", "error");
+        emailInput.focus();
+        return;
+      }
+      if (!consentInput.checked) {
+        setStayStatus("Please tick the consent box to continue.", "error");
+        consentInput.focus();
+        return;
+      }
+
+      // ---- Submit ----
+      isSubmitting = true;
+      var originalLabel = staySubmit.textContent;
+      staySubmit.disabled = true;
+      staySubmit.textContent = "Saving…";
+      setStayStatus("", "");
+
+      fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email, consent: consentInput.checked }),
+      })
+        .then(function (response) {
+          return response.json().then(function (data) {
+            return { ok: response.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          if (!result.ok) {
+            throw new Error(
+              (result.data && result.data.error) || "Sorry, that didn’t save. Please try again."
+            );
+          }
+          // Success: show message (never echo the email), clear the form.
+          setStayStatus(
+            (result.data && result.data.message) || "Thanks — your email has been saved.",
+            "success"
+          );
+          emailInput.value = "";
+          consentInput.checked = false;
+          staySubmit.disabled = false;
+          staySubmit.textContent = originalLabel;
+          isSubmitting = false;
+          if (stayStatus && typeof stayStatus.focus === "function") {
+            stayStatus.focus(); // move focus to the confirmation
+          }
+        })
+        .catch(function (err) {
+          // Failure: keep the form values, restore the button, show a safe message.
+          setStayStatus(err.message || "Sorry, that didn’t save. Please try again.", "error");
+          staySubmit.disabled = false;
+          staySubmit.textContent = originalLabel;
+          isSubmitting = false;
+        });
+    });
+  }
+
+  /* ===================================================================
+     7. Footer year
      =================================================================== */
   var yearEl = document.getElementById("year");
   if (yearEl) { yearEl.textContent = String(new Date().getFullYear()); }

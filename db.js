@@ -181,4 +181,18 @@ function recordInterest(ideaId) {
   return { found: true, interest_count: count };
 }
 
-module.exports = { db, init, getPublicIdeas, recordInterest };
+/* ---- Save one Stay in Touch contact request -------------------------- */
+// Stores a consented email privately. The caller (server.js) is responsible
+// for validating and normalising the email first. consent_given is always 1
+// here because a request is only saved after consent has been confirmed.
+function addContactRequest(email) {
+  const info = db
+    .prepare(
+      `INSERT INTO contact_requests (email, consent_given, status, created_at)
+       VALUES (?, 1, 'new', ?)`
+    )
+    .run(email, nowIso());
+  return { id: info.lastInsertRowid };
+}
+
+module.exports = { db, init, getPublicIdeas, recordInterest, addContactRequest };
