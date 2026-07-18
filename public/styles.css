@@ -199,6 +199,30 @@ section[id] { scroll-margin-top: 72px; }
 .btn--interest:hover { background: var(--mint); }
 .btn--interest__icon { font-size: 1.05rem; line-height: 1; }
 
+/* Saving… state: temporarily disabled while the request is in flight */
+.btn--interest:disabled:not(.is-interested) {
+  opacity: 0.75;
+  cursor: progress;
+}
+
+/* Settled "Interested" state: clearly chosen, readable — NOT greyed-out.
+   Rendered in warm rose with a filled heart; stays visually confident. */
+.btn--interest.is-interested {
+  background: #FBEEF0;              /* pale rose tint */
+  color: var(--heart);
+  border-color: var(--heart);
+  cursor: default;
+  opacity: 1;                       /* override the default disabled look */
+}
+.btn--interest.is-interested .btn--interest__icon { color: var(--heart); }
+
+/* Inline error shown near the interest button if a save fails */
+.idea-card__error {
+  color: var(--heart);
+  font-size: 0.85rem;
+  margin-top: var(--space-1);
+}
+
 /* Visible keyboard focus for all interactive elements */
 a:focus-visible,
 button:focus-visible,
@@ -376,6 +400,14 @@ input:focus-visible {
   font-size: 0.9rem;
   max-width: 60ch;
 }
+
+/* Loading / error message shown inside the ideas grid before cards load */
+.ideas__status {
+  grid-column: 1 / -1;
+  color: var(--secondary);
+  padding: var(--space-4) 0;
+}
+.ideas__status--error { color: var(--heart); }
 
 /* ---- Stay in touch form ---------------------------------------------- */
 .stay__prompt { color: var(--secondary); max-width: 55ch; margin-bottom: var(--space-6); }

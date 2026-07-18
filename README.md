@@ -32,17 +32,24 @@ Kept deliberately simple and beginner-friendly:
 
 ## Current development status
 
-**Stage 1 complete — project setup and Git hygiene.**
+**Stages 1–5 complete.** Project setup and Git hygiene (Stage 1); responsive static page shell
+(Stage 2); the local Express server + SQLite database + database-driven Research Ideas (Stage 4); and
+the one-way "I'm interested" interaction (Stage 5).
 
-Created so far: the project folder structure, `package.json` (with the dependency list), `.gitignore`,
-`.env.example`, this README, and the headshot placed in `public/assets/`. Dependencies are installed
-with `npm install`, which also generates `package-lock.json` (committed) and `node_modules/`
-(git-ignored). There is **no server, database, or web page yet** — those arrive in later stages. The
-real `.env` file and the SQLite database are intentionally **not** created yet.
+The site runs through a local server (`server.js`) that serves the `public/` folder and two public API
+routes: `GET /api/ideas` (list) and `POST /api/ideas/:id/interest` (record one interest). A `db.js`
+module uses Node.js 24's built-in `node:sqlite` to create `data/site.db`, build the three tables on
+first run, and seed the three research ideas only if the table is empty. The Research Ideas cards are
+rendered by `main.js` from the API. Clicking a card's "I'm interested" heart records one row in
+`idea_interests` and shows a settled "♥ Interested" state; the public count always comes from the
+database. Interest is **one-way** in the MVP — there is no unlike, toggle, undo, or decrement. A light
+`localStorage` guard (`bethInterestedIdeaIds`) keeps the same browser from repeat-clicking. The Stay in
+Touch form and all admin functionality are still not implemented (`contact_requests` remains empty).
 
-Planned next stages (see `PLAN.md` for full detail): static page shell → infrastructure preparation
-→ server + database → "I'm interested" interaction → Stay in Touch email form → admin panel →
-first live deployment → polish.
+The real `.env` (with `PORT` and `NODE_ENV`) is created locally and git-ignored, and so is
+`data/site.db`. Planned next stages (see `PLAN.md` for full detail): infrastructure preparation →
+"I'm interested" submission → Stay in Touch email storage → admin panel → first live deployment →
+polish.
 
 ## Project structure
 
