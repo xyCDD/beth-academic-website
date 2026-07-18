@@ -195,4 +195,105 @@ function addContactRequest(email) {
   return { id: info.lastInsertRowid };
 }
 
-module.exports = { db, init, getPublicIdeas, recordInterest, addContactRequest };
+/* =====================================================================
+   ADMIN HELPERS (used only by protected admin routes in server.js)
+   ===================================================================== */
+
+// All research ideas (including hidden ones), each with its interest count.
+function getAllIdeasAdmin() {
+  const ideas = db
+    .prepare("SELECT id, idea_key, title, status, is_public FROM research_ideas ORDER BY id ASC")
+    .all();
+  const countInterests = db.prepare(
+    "SELECT COUNT(*) AS count FROM idea_interests WHERE idea_id = ?"
+  );
+  return ideas.map((i) => ({
+    id: i.id,
+    idea_key: i.idea_key,
+    title: i.title,
+    status: i.status,
+    is_public: !!i.is_public, // return as a real boolean
+    interest_count: countInterests.get(i.id).count,
+  }));
+}
+
+// A single idea in the same admin shape (or null if it does not exist).
+function getIdeaAdminById(id) {
+  const i = db
+    .prepare("SELECT id, idea_key, title, status, is_public FROM research_ideas WHERE id = ?")
+    .get(id);
+  if (!i) return null;
+  const { count } = db
+    .prepare("SELECT COUNT(*) AS count FROM idea_interests WHERE idea_id = ?")
+    .get(id);
+  return {
+    id: i.id,
+    idea_key: i.idea_key,
+    title: i.title,
+    status: i.status,
+    is_public: !!i.is_public,
+    interest_count: count,
+  };
+}
+
+// Update ONLY status and/or is_public (never title/description/keywords/key).
+function updateIdea(id, fields) {
+  const sets = [];
+  const values = [];
+  if (typeof fields.status === "string") {
+    sets.push("status = ?");
+    values.push(fields.status);
+  }
+  if (typeof fields.is_public === "boolean") {
+    sets.push("is_public = ?");
+    values.push(fields.is_public ? 1 : 0);
+  }
+  if (sets.length === 0) {
+    return getIdeaAdminById(id); // nothing to change
+  }
+  sets.push("updated_at = ?");
+  values.push(nowIso());
+  values.push(id);
+  db.prepare(`UPDATE research_ideas SET ${sets.join(", ")} WHERE id = ?`).run(...values);
+  return getIdeaAdminById(id);
+}
+
+// All contact requests, newest first (private — admin only).
+function getAllContacts() {
+  return db
+    .prepare("SELECT id, email, status, created_at FROM contact_requests ORDER BY created_at DESC, id DESC")
+    .all();
+}
+
+function getContactById(id) {
+  return (
+    db.prepare("SELECT id, email, status, created_at FROM contact_requests WHERE id = ?").get(id) ||
+    null
+  );
+}
+
+function updateContactStatus(id, status) {
+  db.prepare("UPDATE contact_requests SET status = ? WHERE id = ?").run(status, id);
+  return getContactById(id);
+}
+
+function deleteContact(id) {
+  const info = db.prepare("DELETE FROM contact_requests WHERE id = ?").run(id);
+  return info.changes > 0;
+}
+
+module.exports = {
+  db,
+  init,
+  getPublicIdeas,
+  recordInterest,
+  addContactRequest,
+  // admin
+  getAllIdeasAdmin,
+  getIdeaAdminById,
+  updateIdea,
+  getAllContacts,
+  getContactById,
+  updateContactStatus,
+  deleteContact,
+};

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Beth Website Admin — Dashboard</title>
+  <link rel="stylesheet" href="/admin/admin.css" />
+</head>
+<body class="admin-body">
+  <header class="admin-header">
+    <div class="admin-header__inner">
+      <h1 class="admin-header__title">Beth Website Admin</h1>
+      <div class="admin-header__actions">
+        <a class="btn btn--secondary" href="/">View Public Website</a>
+        <button class="btn btn--secondary" type="button" id="logoutBtn">Log Out</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <section class="admin-section" aria-labelledby="ideasHeading">
+      <h2 class="admin-section__heading" id="ideasHeading">Research Ideas</h2>
+      <p class="admin-section__hint">You can change each idea’s status and whether it appears on the public site.</p>
+      <div id="ideasArea" aria-live="polite">
+        <p class="admin-status">Loading research ideas…</p>
+      </div>
+    </section>
+
+    <section class="admin-section" aria-labelledby="contactsHeading">
+      <h2 class="admin-section__heading" id="contactsHeading">Contact Requests</h2>
+      <p class="admin-section__hint">Private — these emails are never shown on the public website.</p>
+      <div id="contactsArea" aria-live="polite">
+        <p class="admin-status">Loading contact requests…</p>
+      </div>
+    </section>
+  </main>
+
+  <script src="/admin/dashboard.js"></script>
+</body>
+</html>

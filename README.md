@@ -32,10 +32,19 @@ Kept deliberately simple and beginner-friendly:
 
 ## Current development status
 
-**Stages 1–6 complete.** Project setup and Git hygiene (Stage 1); responsive static page shell
+**Stages 1–7 complete.** Project setup and Git hygiene (Stage 1); responsive static page shell
 (Stage 2); the local Express server + SQLite database + database-driven Research Ideas (Stage 4); the
-one-way "I'm interested" interaction (Stage 5); and the Stay in Touch email form saved privately to
-SQLite (Stage 6).
+one-way "I'm interested" interaction (Stage 5); the Stay in Touch email form saved privately to SQLite
+(Stage 6); and the password-protected admin panel (Stage 7). Deployment (VPS, domain, Nginx, HTTPS) has
+**not** started.
+
+**Admin panel:** log in at `/admin/login` with the `ADMIN_PASSWORD`. The dashboard (`/admin`, protected)
+lets Beth change each research idea's **status** and **public visibility**, and view/relabel/delete
+**contact requests** — nothing else is editable (titles, descriptions, keywords, and idea keys are
+fixed in this MVP). Login uses a `cookie-session` cookie (`httpOnly`, `sameSite: "lax"`, `secure` in
+production) holding only an `isAdmin` flag; the password is compared server-side with a constant-time
+check and never sent to the browser. The server refuses to start unless `ADMIN_PASSWORD` and
+`SESSION_SECRET` are set (see `.env.example`). Contact emails are never exposed by any public route.
 
 The site runs through a local server (`server.js`) that serves the `public/` folder and three public API
 routes: `GET /api/ideas` (list), `POST /api/ideas/:id/interest` (record one interest), and
